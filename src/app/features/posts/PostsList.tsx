@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { selectAllPosts } from "./postSlice";
-import AddPost from "./AddPost";
+import AddPostForm from "./AddPostForm";
 
 const PostsList = () => {
   const posts = useSelector(selectAllPosts);
@@ -21,8 +21,8 @@ const PostsList = () => {
       <Stack spacing={2} sx={{ maxWidth: "300px" }}>
         {renderPosts}
       </Stack>
-      
-      <AddPost />
+
+      <AddPostForm />
     </Box>
   );
 };
