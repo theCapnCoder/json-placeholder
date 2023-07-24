@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../store'
 
 const initialState = [
   { id: 1, title: 'First post', content: 'First post content', },
@@ -14,6 +15,8 @@ const postsSlice = createSlice({
     }
   }
 })
+
+export const selectAllPosts = (state: RootState) => state.posts
 
 export const { addPost } = postsSlice.actions
 
