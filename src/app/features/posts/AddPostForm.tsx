@@ -20,15 +20,9 @@ const AddPostForm = () => {
 
   const onSavePostClicked = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title && content) {
-      dispatch(
-        addPost({
-          id: nanoid(),
-          title: title.trim(),
-          content: content.trim(),
-        })
-      );
 
+    if (title && content) {
+      dispatch(addPost(title, content));
       setTitle("");
       setContent("");
     }
