@@ -10,6 +10,7 @@ import {
 } from "./postSlice";
 import { AppDispatch } from "../../store";
 import PostsExcerpt from "./PostsExcerpt";
+import AddPostFormApi from "./AddPostFormApi";
 
 const PostsListApi = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -48,12 +49,12 @@ const PostsListApi = () => {
 
   return (
     <Box>
+      <AddPostFormApi />
+
       <Typography variant={"h3"} my={2}>
         PostsList
       </Typography>
       <Stack spacing={2}>{content}</Stack>
-
-      <AddPostForm />
     </Box>
   );
 };
