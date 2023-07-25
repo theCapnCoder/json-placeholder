@@ -1,7 +1,8 @@
-import { PayloadAction, createSlice, nanoid, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, nanoid, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { Post, Reactions } from "../posts/postSlice";
 import { sub } from 'date-fns'
 import axios, { AxiosError } from 'axios';
+import { RootState } from "../../store";
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 
@@ -17,7 +18,7 @@ const initialState: InitialState = {
   error: '',
 }
 
-export const fetchPosts = createAsyncThunk<Post[], string>(
+export const fetchPosts = createAsyncThunk<Post[]>(
   'posts/fetchPosts',
   async (_, thunkAPI) => {
     try {
@@ -29,7 +30,7 @@ export const fetchPosts = createAsyncThunk<Post[], string>(
   }
 )
 
-const postsSlice = createSlice({
+const postsApiSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
@@ -85,7 +86,7 @@ const postsSlice = createSlice({
           }
           return post;
         })
-        
+
         state.posts = state.posts.concat(loadedPosts)
       })
       .addCase(fetchPosts.rejected, (state, { payload }) => {
@@ -95,6 +96,10 @@ const postsSlice = createSlice({
   }
 })
 
-export const { addPost } = postsSlice.actions;
+export const selectAllPosts = (state: RootState) => state.postsApi.posts
+export const getPostsStatus = (state: RootState) => state.postsApi.status
+export const getPostsError = (state: RootState) => state.postsApi.error
 
-export default postsSlice.reducer;
+export const { addPost } = postsApiSlice.actions;
+
+export default postsApiSlice.reducer;

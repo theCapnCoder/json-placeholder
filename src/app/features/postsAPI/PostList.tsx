@@ -1,13 +1,29 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import { selectAllPosts } from "./postSlice";
-import AddPostForm from "./AddPostForm";
-import PostAuthor from "./PostAuthor";
-import TimeAgo from "./TimeAgo";
-import ReactionButtons from "./ReactionButtons";
+import PostAuthor from "../posts/PostAuthor";
+import TimeAgo from "../posts/TimeAgo";
+import ReactionButtons from "../posts/ReactionButtons";
+import AddPostForm from "../posts/AddPostForm";
+import {
+  fetchPosts,
+  getPostsError,
+  getPostsStatus,
+  selectAllPosts,
+} from "./postSlice";
+import { AppDispatch } from "../../store";
 
 const PostsList = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const posts = useSelector(selectAllPosts);
+  const postsStatus = useSelector(getPostsStatus);
+  const postsError = useSelector(getPostsError);
+
+  useEffect(() => {
+    if (postsStatus === "idle") {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, postsStatus]);
 
   const orderedPosts = posts
     .slice()
