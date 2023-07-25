@@ -1,17 +1,33 @@
-import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, nanoid, createAsyncThunk, ActionReducerMapBuilder, AnyAction } from "@reduxjs/toolkit";
 import { Post, Reactions } from "../posts/postSlice";
+import { sub } from 'date-fns'
+import axios, { AxiosError } from 'axios';
+
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 
 type InitialState = {
   posts: Post[],
   status: "idle" | "loading" | "succeeded" | "failed",
-  error: null,
+  error: string | undefined,
 }
 
 const initialState: InitialState = {
   posts: [],
   status: 'idle',
-  error: null,
+  error: '',
 }
+
+export const fetchPosts = createAsyncThunk<Post[], string>(
+  'posts/fetchPosts',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get<Post[]>(POSTS_URL)
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -44,9 +60,38 @@ const postsSlice = createSlice({
       const { postId, reaction } = action.payload
       const existingPost = state.posts.find(post => post.id === postId)
       if (existingPost) {
-        existingPost.reactions[reaction]++  
+        existingPost.reactions[reaction]++
       }
     }
+  },
+  extraReducers(builder: ActionReducerMapBuilder<InitialState>) {
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = 'loading'
+        state.error = '';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+
+        let min = 1;
+        const loadedPosts = action.payload.map(post => {
+          post.date = sub(new Date(), { minutes: min++ }).toISOString()
+          post.reactions = {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0
+          }
+          return post;
+        })
+        
+        state.posts = state.posts.concat(loadedPosts)
+      })
+      .addCase(fetchPosts.rejected, (state, { payload }) => {
+        state.status = 'failed'
+        state.error = (payload as AxiosError).message;
+      })
   }
 })
 
