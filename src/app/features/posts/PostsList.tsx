@@ -3,6 +3,7 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import { selectAllPosts } from "./postSlice";
 import AddPostForm from "./AddPostForm";
 import PostAuthor from "./PostAuthor";
+import TimeAgo from "./TimeAgo";
 
 const PostsList = () => {
   const posts = useSelector(selectAllPosts);
@@ -13,6 +14,7 @@ const PostsList = () => {
       <Typography variant="body1">{post.content.substring(0, 100)}</Typography>
       <Typography variant="caption">
         <PostAuthor userId={post.userId} />
+        <TimeAgo timestamp={post.date} />
       </Typography>
     </Paper>
   ));

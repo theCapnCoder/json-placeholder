@@ -9,7 +9,7 @@ const PostAuthor = ({ userId }: { userId: number | undefined }) => {
   const author = users.find((user) => user.id === userId);
   return (
     <Typography variant="caption" component={"span"}>
-      {author ? author.name : "Unknown author"}
+      by {author ? author.name : "Unknown author"}
     </Typography>
   );
 };
