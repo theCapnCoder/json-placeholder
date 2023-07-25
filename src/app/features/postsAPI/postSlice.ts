@@ -30,6 +30,19 @@ export const fetchPosts = createAsyncThunk<Post[]>(
   }
 )
 
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async (initialPost: { title: string, body: string, userId: string }) => {
+    try {
+      const response = await axios.post<Post>(POSTS_URL, initialPost)
+      return response.data
+    }
+    catch (error) {
+      return error
+    }
+  }
+)
+
 const postsApiSlice = createSlice({
   name: 'posts',
   initialState,
@@ -92,6 +105,19 @@ const postsApiSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, { payload }) => {
         state.status = 'failed'
         state.error = (payload as AxiosError).message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action: any) => {
+        action.payload.userId = Number(action.payload.userId)
+        action.payload.date = new Date().toISOString();
+        action.payload.reactions = {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0
+        }
+
+        state.posts.push(action.payload)
       })
   }
 })

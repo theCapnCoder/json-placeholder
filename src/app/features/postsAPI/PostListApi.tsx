@@ -35,7 +35,6 @@ const PostsListApi = () => {
     const orderedPosts = posts
       .slice()
       .sort((a, b) => b.date.localeCompare(a.date));
-    console.log(orderedPosts);
     content = orderedPosts.map((post) => (
       <PostsExcerpt key={post.id} post={post} />
     ));
