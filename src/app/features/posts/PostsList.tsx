@@ -2,6 +2,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { selectAllPosts } from "./postSlice";
 import AddPostForm from "./AddPostForm";
+import PostAuthor from "./PostAuthor";
 
 const PostsList = () => {
   const posts = useSelector(selectAllPosts);
@@ -10,6 +11,9 @@ const PostsList = () => {
     <Paper variant="outlined" component={"article"} key={post.id} sx={{ p: 2 }}>
       <Typography variant={"h4"}>{post.title}</Typography>
       <Typography variant="body1">{post.content.substring(0, 100)}</Typography>
+      <Typography variant="caption">
+        <PostAuthor userId={post.userId} />
+      </Typography>
     </Paper>
   ));
 
