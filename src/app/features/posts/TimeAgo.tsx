@@ -1,7 +1,7 @@
 import { parseISO, formatDistanceToNow } from "date-fns";
 import { Typography } from "@mui/material";
 
-const TimeAgo = ({ timestamp }: { timestamp: string | undefined }) => {
+const TimeAgo = ({ timestamp }: { timestamp: string }) => {
   let timeAgo = "";
   if (timestamp) {
     const date = parseISO(timestamp);
