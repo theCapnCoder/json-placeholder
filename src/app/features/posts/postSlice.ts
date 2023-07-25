@@ -17,6 +17,7 @@ export type Post = {
   date: string
   userId?: number
   reactions: Record<keyof Reactions, number>
+  body?: any
 }
 
 const initialState: Post[] = [

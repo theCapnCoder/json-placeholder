@@ -4,7 +4,6 @@ import { Typography } from "@mui/material";
 
 const PostAuthor = ({ userId }: { userId: number | undefined }) => {
   const users = useSelector(selectAllUsers);
-  console.log(userId);
 
   const author = users.find((user) => user.id === userId);
   return (

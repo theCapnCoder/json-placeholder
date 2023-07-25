@@ -16,7 +16,7 @@ const PostsList = () => {
   const renderPosts = orderedPosts.map((post) => (
     <Paper variant="outlined" component={"article"} key={post.id} sx={{ p: 2 }}>
       <Typography variant={"h4"}>{post.title}</Typography>
-      <Typography variant="body1">{post.content.substring(0, 100)}</Typography>
+      <Typography variant="body1">{post.content.substring(0, 10)}</Typography>
       <Typography variant="caption">
         <PostAuthor userId={post.userId} />
         <TimeAgo timestamp={post.date} />
