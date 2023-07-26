@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/json-placeholder/static/js/main.b5211f00.js",
+    "index.html": "/json-placeholder/index.html",
+    "main.b5211f00.js.map": "/json-placeholder/static/js/main.b5211f00.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b5211f00.js"
+  ]
+}
