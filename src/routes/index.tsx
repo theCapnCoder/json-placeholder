@@ -29,7 +29,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/energy-rent" }
+  { basename: "/json-placeholder" }
 );
 
 export default router;
