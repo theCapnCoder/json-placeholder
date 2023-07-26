@@ -1,14 +1,12 @@
-import { Typography } from "@mui/material";
-import Counter from "./app/features/counter/Counter";
-import PostsList from "./app/features/posts/PostsList";
-import PostsListApi from "./app/features/postsAPI/PostListApi";
+import { Box, Typography } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <Box>
       <Typography>JSON placeholder</Typography>
-      <PostsListApi />
-    </div>
+      <Outlet />
+    </Box>
   );
 }
 
