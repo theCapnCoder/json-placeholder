@@ -65,8 +65,10 @@ const AddPostFormApi = () => {
   ));
 
   return (
-    <Box>
-      <Typography variant="h3">AddPost</Typography>
+    <Box mb={4}>
+      <Typography variant="h5" mb={1}>
+        AddPost
+      </Typography>
       <form onSubmit={onSavePostClicked}>
         <Stack spacing={2} sx={{ maxWidth: "300px" }}>
           <TextField type="text" value={title} onChange={onTitleChange} />

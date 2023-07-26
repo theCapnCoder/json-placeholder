@@ -28,7 +28,7 @@ const PostsList = () => {
   return (
     <Box>
       <Typography variant={"h3"} my={2}>
-        PostsList
+        Posts from local list
       </Typography>
       <Stack spacing={2} sx={{ maxWidth: "300px" }}>
         {renderPosts}

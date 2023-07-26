@@ -48,11 +48,11 @@ const PostsListApi = () => {
 
   return (
     <Box>
-      <AddPostFormApi />
-
       <Typography variant={"h3"} my={2}>
-        PostsList
+        Posts from API
       </Typography>
+      <AddPostFormApi />
+      
       <Stack spacing={2}>{content}</Stack>
     </Box>
   );
