@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { selectAllUsers } from "../users/usersSlice";
 import { Typography } from "@mui/material";
+import { selectAllApiUsers } from "../users/usersApiSlice";
 
-const PostAuthor = ({ userId }: { userId: number | undefined }) => {
-  const users = useSelector(selectAllUsers);
+const PostAuthorApi = ({ userId }: { userId: number | undefined }) => {
+  const users = useSelector(selectAllApiUsers);
 
   const author = users.find((user) => user.id === userId);
   return (
@@ -13,4 +13,4 @@ const PostAuthor = ({ userId }: { userId: number | undefined }) => {
   );
 };
 
-export default PostAuthor;
+export default PostAuthorApi;
