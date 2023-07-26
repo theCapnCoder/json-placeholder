@@ -1,8 +1,15 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { Outlet, redirect, useNavigate } from "react-router-dom";
 import { Menu } from "./components/menu";
+import { useEffect } from "react";
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/counter");
+  }, [navigate]);
+
   return (
     <Box>
       <Typography
